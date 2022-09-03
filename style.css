@@ -1,11 +1,57 @@
 #movie-backdrop {
-    width: 100%;
+  width: 100%;
 }
 
 .container {
-    padding-top: 32px;
+  padding-top: 32px;
 }
 
 #actors {
-    margin: 24px 16px 0 0;
+  margin: 24px 16px 0 0;
+}
+.navbar {
+  background-color: #573497;
+}
+.navbar-toggler {
+  color: white;
+}
+.dropdown-menu .dropdown-item {
+  color: #573497;
+  cursor: pointer;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: #bba5e4;
+}
+.logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+}
+
+.icon {
+  color: white;
+  margin-right: 7px;
+  cursor: pointer;
+}
+.icon:hover {
+  color: #d6c4f8;
+}
+.navbar-brand {
+  color: white;
+  font-size: 25px;
+}
+.navbar-brand:hover {
+  color: #d6c4f8;
+}
+.nav-item a {
+  color: white;
+  font-size: 17px;
+}
+.btn {
+  color: white;
+}
+.btn:active {
+  color: white;
+  border: 1px white solid;
 }
