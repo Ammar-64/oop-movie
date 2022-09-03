@@ -1,11 +1,28 @@
 #movie-backdrop {
-    width: 100%;
+  width: 100%;
 }
 
-.container {
-    padding-top: 32px;
+#container {
+  padding-top: 32px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 15px;
 }
 
 #actors {
-    margin: 24px 16px 0 0;
+  margin: 24px 16px 0 0;
+}
+
+.movie-div {
+  padding: 10px;
+  height: 250px;
+  width: 400px;
+  border-radius: 25px;
+}
+
+.movie-img {
+  border-radius: 25px;
+
+  max-width: 100%;
+  max-height: 100%;
 }
