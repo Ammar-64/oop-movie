@@ -39,12 +39,14 @@ class HomePage {
       movieImage.className = "movie-img";
       const movieTitle = document.createElement("h3");
       movieTitle.textContent = `${movie.title}`;
+      movieTitle.style.fontSize = "25px";
+      movieTitle.classList = "movie-title";
       movieImage.addEventListener("click", function () {
         Movies.run(movie);
       });
 
-      movieDiv.appendChild(movieTitle);
       movieDiv.appendChild(movieImage);
+      movieDiv.appendChild(movieTitle);
       this.container.appendChild(movieDiv);
     });
   }
