@@ -29,11 +29,18 @@ class APIService {
 class HomePage {
     static container = document.getElementById('container');
     static renderMovies(movies) {
+        const row = document.createElement('div');
+        row.className="row row-cols-3";
         movies.forEach(movie => {
+            const movieCard = document.createElement("div");
+            movieCard.className="p-3 col card";
             const movieDiv = document.createElement("div");
+            movieDiv.className="card-body";
             const movieImage = document.createElement("img");
+            movieImage.className = "card-img-top";
             movieImage.src = `${movie.backdropUrl}`;
             const movieTitle = document.createElement("h3");
+            movieTitle.className = "card-title"; 
             movieTitle.textContent = `${movie.title}`;
             movieImage.addEventListener("click", function() {
                 Movies.run(movie);
@@ -41,7 +48,9 @@ class HomePage {
 
             movieDiv.appendChild(movieTitle);
             movieDiv.appendChild(movieImage);
-            this.container.appendChild(movieDiv);
+            movieCard.appendChild(movieDiv);
+            row.appendChild(movieCard);
+            this.container.appendChild(row);
         })
     }
 }

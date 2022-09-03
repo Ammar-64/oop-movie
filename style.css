@@ -9,3 +9,25 @@
 #actors {
     margin: 24px 16px 0 0;
 }
+.card{
+    padding: 0%;
+    width: 35%;
+    border: none;
+    /* border: 15px solid transparent; */
+  /* border-image: url('./src/test-border.png') 20%; */
+  
+}
+.card-body{
+    width: 100%;
+    padding: 0%;
+    /* background-image: url('./src/film-border.jpg');
+    background-size: contain;
+    background-repeat: no-repeat; */
+}
+
+img.card-img-top{
+    width : 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
