@@ -21,6 +21,22 @@ class APIService {
         const data = await response.json()
         return new Movie(data)
     }
+    static async fetchActors(movieId) {
+        const url = APIService._constructUrl(`movie/${movieId}/credits`)
+        const response  = await fetch(url)
+        const data = await response.json()
+        return data.cast.map(actor => {
+            if(actor.order < 5) {
+                return new Actor(actor)
+            }
+        })
+    }
+    static async fetchActor(actorId) {
+        const url = APIService._constructUrl(`person/${actorId}`)
+        const response = await fetch(url)
+        const data = await response.json()
+        return new Person(data)
+    }
     static _constructUrl(path) {
         return `${this.TMDB_BASE_URL}/${path}?api_key=${atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=')}`;
     }
@@ -51,8 +67,16 @@ class Movies {
     static async run(movie) {
         const movieData = await APIService.fetchMovie(movie.id)
         MoviePage.renderMovieSection(movieData);
-        APIService.fetchActors(movieData)
+        const actors = await APIService.fetchActors(movie.id)
+        MoviePage.renderActorsSection(actors)
 
+    }
+}
+
+class Actors {
+    static async run(actor) {
+        const actorData = await APIService.fetchActor(actor.id)
+        ActorPage.renderActorSection(actorData);
     }
 }
 
@@ -60,6 +84,9 @@ class MoviePage {
     static container = document.getElementById('container');
     static renderMovieSection(movie) {
         MovieSection.renderMovie(movie);
+    }
+    static renderActorsSection(actors) {
+        MovieSection.renderActors(actors);
     }
 }
 
@@ -82,6 +109,50 @@ class MovieSection {
       <h3>Actors:</h3>
     `;
     }
+    static renderActors(actors) {
+        const actorsList = document.createElement('ul')
+        actorsList.id = 'actors'
+        MoviePage.container.appendChild(actorsList)
+        actors.forEach(actor => {
+           const actorLi = document.createElement('li')
+           const actorImg = document.createElement('img')
+           actorImg.src = `${actor.profileURL}`
+           const actorName = document.createElement('p')
+           actorName.textContent = `${actor.name}`
+           actorImg.addEventListener('click', function() {
+                Actors.run(actor)
+           })
+           actorLi.appendChild(actorImg)
+           actorLi.appendChild(actorName)
+           actorsList.appendChild(actorLi)
+        })
+    }
+}
+
+class ActorPage {
+    static container = document.getElementById('container')
+    static renderActorSection(actor) {
+        ActorSection.renderActor(actor)
+    }
+}
+
+class ActorSection {
+    static renderActor(actor) {
+        ActorPage.container.innerHTML = `
+        <div class="row">
+        <div class="col-md-4">
+          <img id="actor-profile" src=${actor.profileURL}> 
+        </div>
+        <div class="col-md-8">
+          <h2 id="name">${actor.name}</h2>
+          <p id="birthdeath">${actor.birthday}- ${actor.actorDeath}</p>
+          <p id="gender">${actor.actorGender}</p>
+          <p id="popularity">${actor.popularity}</p>
+          <h3>Biography:</h3>
+          <p id="bio">${actor.biography}</p>
+        </div>
+      </div>`
+    }
 }
 
 class Movie {
@@ -97,6 +168,56 @@ class Movie {
 
     get backdropUrl() {
         return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
+    }
+}
+
+class Actor {
+    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w185';
+    constructor(json) {
+        this.id = json.id;
+        this.name = json.name;
+        this.profile = json.profile_path;
+
+    }
+
+    get profileURL() {
+        return this.profile ? Actor.BACKDROP_BASE_URL + this.profile : "" ;
+    }
+}
+
+class Person {
+    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
+    constructor(json) {
+        this.id = json.id;
+        this.name = json.name;
+        this.birthday = json.birthday;
+        this.deathday = json.deathday;
+        this.biography = json.biography;
+        this.gender = json.gender;
+        this.profile = json.profile_path;
+        this.popularity = json.popularity;
+    }
+
+    get profileURL() {
+        return this.profile ? Actor.BACKDROP_BASE_URL + this.profile : "" ;
+    }
+
+    get actorGender() {
+        if(this.gender == 1){
+            return "Female"
+        }
+        else {
+            return "Male"
+        }
+    }
+
+    get actorDeath() {
+        if (this.deathday == null) {
+            return "Alive"
+        }
+        else {
+            return this.deathday
+        }
     }
 }
 

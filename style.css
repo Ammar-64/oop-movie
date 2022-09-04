@@ -8,4 +8,20 @@
 
 #actors {
     margin: 24px 16px 0 0;
+    list-style-type: none;
+}
+#actors li {
+    display: inline-block;
+    text-align: center;
+}
+
+#actors li img {
+    border-radius: 50%;
+    height:170px;
+    width:170px;
+    margin: 7px;
+}
+
+#actor-profile {
+    width:75%;
 }
