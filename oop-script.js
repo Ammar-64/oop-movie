@@ -52,6 +52,7 @@ class HomePage {
             const movieDiv = document.createElement("div");
             const movieImage = document.createElement("img");
             movieImage.src = `${movie.posterUrl}`;
+            movieImage.className = "movie-poster"
             /*const movieTitle = document.createElement("h3");
             movieTitle.textContent = `${movie.title}`;*/
             movieImage.addEventListener("click", function() {

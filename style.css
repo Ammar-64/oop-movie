@@ -62,3 +62,14 @@ body {
 #actor-profile {
     width:75%;
 }
+
+@media screen and (max-width:640px) {
+    .movie-home {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr ;
+    }
+    .movie-poster {
+        width: 100%;
+    }
+}
