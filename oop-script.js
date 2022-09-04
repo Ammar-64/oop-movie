@@ -44,20 +44,23 @@ class APIService {
 
 class HomePage {
     static container = document.getElementById('container');
+    
     static renderMovies(movies) {
+        const movieHome = document.createElement('div')
+        movieHome.className = "movie-home"
         movies.forEach(movie => {
             const movieDiv = document.createElement("div");
             const movieImage = document.createElement("img");
-            movieImage.src = `${movie.backdropUrl}`;
-            const movieTitle = document.createElement("h3");
-            movieTitle.textContent = `${movie.title}`;
+            movieImage.src = `${movie.posterUrl}`;
+            /*const movieTitle = document.createElement("h3");
+            movieTitle.textContent = `${movie.title}`;*/
             movieImage.addEventListener("click", function() {
                 Movies.run(movie);
             });
-
-            movieDiv.appendChild(movieTitle);
+            /*movieDiv.appendChild(movieTitle);*/
             movieDiv.appendChild(movieImage);
-            this.container.appendChild(movieDiv);
+            movieHome.appendChild(movieDiv);
+            this.container.appendChild(movieHome);   
         })
     }
 }
@@ -156,7 +159,7 @@ class ActorSection {
 }
 
 class Movie {
-    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
+    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w342';
     constructor(json) {
         this.id = json.id;
         this.title = json.title;
@@ -164,15 +167,20 @@ class Movie {
         this.runtime = json.runtime + " minutes";
         this.overview = json.overview;
         this.backdropPath = json.backdrop_path;
+        this.poster = json.poster_path;
     }
 
     get backdropUrl() {
         return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
     }
+
+    get posterUrl() {
+        return this.poster ? Movie.BACKDROP_BASE_URL + this.poster : "";
+    }
 }
 
 class Actor {
-    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w185';
+    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w342';
     constructor(json) {
         this.id = json.id;
         this.name = json.name;
@@ -186,7 +194,7 @@ class Actor {
 }
 
 class Person {
-    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
+    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w500';
     constructor(json) {
         this.id = json.id;
         this.name = json.name;

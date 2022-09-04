@@ -1,9 +1,46 @@
+body {
+    background-image: url(https://s.ltrbxd.com/static/img/content-bg.0d9a0f0f.png);
+    background-repeat: repeat no-repeat;
+    background-color: rgb(20, 24, 28);
+    color:#fff;
+}
+
+.navbar a {
+    color: #bbb;
+}
+
+.navbar a:hover{
+    color:#fff;
+}
+
+.navbar.container.collapse.navbar-nav {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer {
+    margin-top: 15px;
+    padding: 20px;
+    width: 100%;
+    height: 150px;
+    color:#fff;
+    text-align: center;
+
+}
+
 #movie-backdrop {
     width: 100%;
 }
 
 .container {
     padding-top: 32px;
+}
+
+.movie-home {
+    width: 100%;
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 20px;
 }
 
 #actors {
