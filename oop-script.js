@@ -181,7 +181,7 @@ class Movie {
 }
 
 class Actor {
-    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w342';
+    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w185';
     constructor(json) {
         this.id = json.id;
         this.name = json.name;
