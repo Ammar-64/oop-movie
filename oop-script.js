@@ -23,7 +23,7 @@ class APIService {
     }
     static _constructUrl(path) {
         return `${this.TMDB_BASE_URL}/${path}?api_key=${atob(
-      'bae5a03c227c33b8d9842f4e6c132889='
+      'NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='
     )}`
     }
 }
