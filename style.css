@@ -69,6 +69,10 @@ p {
     width:75%;
 }
 
+.movie-poster{
+    border-radius: 1rem;
+}
+
 @media screen and (max-width:640px) {
     .movie-home {
         width: 100%;
@@ -77,5 +81,6 @@ p {
     }
     .movie-poster {
         width: 100%;
+        border-radius: 5%;
     }
 }

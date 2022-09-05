@@ -3,14 +3,18 @@
 class App {
     static async run() {
         const movies = await APIService.fetchMovies()
+        // console.log(movies)
         HomePage.renderMovies(movies);
     }
 }
 
 class APIService {
     static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-    static async fetchMovies() {
-        const url = APIService._constructUrl(`movie/now_playing`)
+    static async fetchMovies(searchURL) {
+        let url = APIService._constructUrl(`movie/now_playing`)
+        if (searchURL){
+            url = searchURL;
+        }
         const response = await fetch(url)
         const data = await response.json()
         return data.results.map(movie => new Movie(movie))
@@ -20,6 +24,14 @@ class APIService {
         const response = await fetch(url)
         const data = await response.json()
         return new Movie(data)
+    }
+    static async searchMovies(searchTerm){
+        // https://api.themoviedb.org/3/search/movie?api_key=5c8358b462ac5e72db3b0f23bbbb210d&query=batman
+        const url = `${APIService.TMDB_BASE_URL}/search/movie?api_key=${atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=')}&query=${searchTerm}`
+        let movies = await APIService.fetchMovies(url);
+        // const data = await movies.json()
+        console.log(movies);
+        HomePage.renderMovies(movies);
     }
     static async fetchActors(movieId) {
         const url = APIService._constructUrl(`movie/${movieId}/credits`)
@@ -46,13 +58,23 @@ class HomePage {
     static container = document.getElementById('container');
     
     static renderMovies(movies) {
+        container.innerHTML='';
         const movieHome = document.createElement('div')
         movieHome.className = "movie-home"
         movies.forEach(movie => {
+            
+            
             const movieDiv = document.createElement("div");
             const movieImage = document.createElement("img");
+            // movieImage.classList.add('card-image');
+            // console.log(movie.vote_average);
+            const movieTitle = document.createElement("p");
+            const movieRating = document.createElement("p");
+            
             movieImage.src = `${movie.posterUrl}`;
             movieImage.className = "movie-poster"
+            movieTitle.textContent = movie.title;
+            movieRating.textContent = movie.vote_average;
             /*const movieTitle = document.createElement("h3");
             movieTitle.textContent = `${movie.title}`;*/
             movieImage.addEventListener("click", function() {
@@ -60,10 +82,25 @@ class HomePage {
             });
             /*movieDiv.appendChild(movieTitle);*/
             movieDiv.appendChild(movieImage);
+            movieDiv.appendChild(movieTitle);
+            movieDiv.appendChild(movieRating);
+            console.log(movie);
             movieHome.appendChild(movieDiv);
             this.container.appendChild(movieHome);   
         })
+        let searchBox = document.querySelector('.form-control.me-2')
+        let searchButton = document.querySelector('.btn.btn-outline-success')
+        // let searchForm = document.querySelector(form.d-flex)
+        // searchForm.preventDefault;
+        // if (searchBox.value.length>0){
+        searchButton.addEventListener('click', (e) => {
+            APIService.searchMovies(searchBox.value)
+            // e.preventDefault;
+            // console.log(searchBox.value);
+        })
+        // }
     }
+
 }
 
 
@@ -164,6 +201,8 @@ class Movie {
     constructor(json) {
         this.id = json.id;
         this.title = json.title;
+        this.vote_average = json.vote_average;
+        this.genres = json.genres;
         this.releaseDate = json.release_date;
         this.runtime = json.runtime + " minutes";
         this.overview = json.overview;
