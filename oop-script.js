@@ -1,5 +1,8 @@
 //the API documentation site https://developers.themoviedb.org/3/
-
+const container = document.getElementById("container");
+const backgroundDiv = document.createElement("div");
+backgroundDiv.classList.add('backgroundDiv')
+container.appendChild(backgroundDiv)
 class App {
   static async run() {
     const movies = await APIService.fetchMovies();
@@ -22,28 +25,43 @@ class APIService {
     return new Movie(data);
   }
   static _constructUrl(path) {
-    return `${
-      this.TMDB_BASE_URL
-    }/${path}?api_key=${"862271aa285e74d61113b31d525420b4"}`; //remember to encode and decode it using ../atob
+    return `${this.TMDB_BASE_URL
+      }/${path}?api_key=${"862271aa285e74d61113b31d525420b4"}`; //remember to encode and decode it using ../atob
   }
 }
 
 class HomePage {
   static container = document.getElementById("container");
+  static moviesDiv = document.createElement("div");
+  static renderBackgroundMovie(movie) {
+    backgroundDiv.innerHTML = `
+    <div class='backgroundTextDiv'>
+    <h1>${movie.title}</h1>
+    <p>${movie.overview}</p>
+    </div>
+    <img src=${movie.backdropUrl} alt='movie-image'>
+    `;
+  }
   static renderMovies(movies) {
     movies.forEach((movie) => {
       const movieDiv = document.createElement("div");
       const movieImage = document.createElement("img");
       movieImage.src = `${movie.backdropUrl}`;
-      const movieTitle = document.createElement("h3");
+      const movieTitle = document.createElement("p");
       movieTitle.textContent = `${movie.title}`;
       movieImage.addEventListener("click", function () {
         Movies.run(movie);
       });
-
-      movieDiv.appendChild(movieTitle);
+      movieImage.addEventListener("mouseover", (e) => {
+        e.preventDefault();
+        this.renderBackgroundMovie(movie);
+      });
+      movieDiv.classList.add("movieDiv");
+      this.moviesDiv.classList.add("moviesDiv");
       movieDiv.appendChild(movieImage);
-      this.container.appendChild(movieDiv);
+      movieDiv.appendChild(movieTitle);
+      this.moviesDiv.appendChild(movieDiv);
+      this.container.appendChild(this.moviesDiv);
     });
   }
 }
