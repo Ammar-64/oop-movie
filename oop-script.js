@@ -9,6 +9,7 @@ class App {
 
 class APIService {
   static TMDB_BASE_URL = "https://api.themoviedb.org/3";
+  static API_KEY = "api_key=cb26d12dceb11bd0819dd204cd6a0c00";
   static async fetchMovies() {
     const url = APIService._constructUrl(`movie/now_playing`);
     const response = await fetch(url);
@@ -28,10 +29,12 @@ class APIService {
   }
 }
 
+class Actor {}
 class HomePage {
   static container = document.getElementById("container");
   static renderMovies(movies) {
     movies.forEach((movie) => {
+      console.log(movie);
       const movieDiv = document.createElement("div");
       movieDiv.className = "movie-div";
       const movieImage = document.createElement("img");
@@ -39,14 +42,35 @@ class HomePage {
       movieImage.className = "movie-img";
       const movieTitle = document.createElement("h3");
       movieTitle.textContent = `${movie.title}`;
-      movieTitle.style.fontSize = "25px";
+      movieTitle.style.fontSize = "18px";
       movieTitle.classList = "movie-title";
+
+      const overviewDiv = document.createElement("div");
+      overviewDiv.className = "overview-div";
+
+      const movieOverview = document.createElement("p");
+      movieOverview.textContent = `${movie.overview}`;
+      movieOverview.style.fontSize = "15px";
+
+      const span = document.createElement("span");
+      span.className = "rating-span";
+      const movieRating = document.createElement("p");
+      movieRating.textContent = `${movie.rating}`;
+      movieRating.style.textAlign = "right";
+      movieRating.style.marginTop = "-30px";
+      movieRating.style.color = "orange";
+
+      span.appendChild(movieRating);
       movieImage.addEventListener("click", function () {
         Movies.run(movie);
       });
 
       movieDiv.appendChild(movieImage);
       movieDiv.appendChild(movieTitle);
+      movieDiv.append(span);
+      movieDiv.appendChild(overviewDiv);
+      overviewDiv.appendChild(movieOverview);
+
       this.container.appendChild(movieDiv);
     });
   }
@@ -84,6 +108,7 @@ class MovieSection {
         </div>
       </div>
       <h3>Actors:</h3>
+      <div></div>
     `;
   }
 }
@@ -97,6 +122,7 @@ class Movie {
     this.runtime = json.runtime + " minutes";
     this.overview = json.overview;
     this.backdropPath = json.backdrop_path;
+    this.rating = json.vote_average;
   }
 
   get backdropUrl() {

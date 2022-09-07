@@ -1,6 +1,16 @@
 #movie-backdrop {
   width: 100%;
 }
+.overview-div {
+  margin-top: -200px;
+  height: 100vh;
+  width: 400px;
+  background-color: gray;
+  z-index: 3;
+  position: relative;
+  transform: translateY(101%);
+  transition: transform 0.4s ease-in-out;
+}
 
 #container {
   padding-top: 32px;
@@ -15,24 +25,35 @@
 
 .movie-div {
   padding: 10px;
-  height: 350px;
+  height: 280px;
   width: 400px;
-  border-radius: 30px;
+  border-radius: 30px 30px 0px 0px;
   box-shadow: 5px 5px 10px rgb(235, 226, 226);
+  overflow: hidden;
+  transition: transform 0.3s ease-in;
 }
 .movie-div:hover {
   transform: scale(
     1.1
   ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
+.movie-div:hover .overview-div {
+  transform: translateY(0);
+}
+.rating-span {
+  width: 20px;
+  height: 20px;
+  background-color: blue;
+}
 .movie-img {
   border-radius: 25px 25px 0px 0px;
   overflow: hidden;
   max-width: 100%;
   max-height: 100%;
+  width: 500px;
 }
 .movie-title {
-  margin-top: 5px;
+  margin-top: 10px;
   text-align: center;
   font-family: "Allerta Stencil";
 }
