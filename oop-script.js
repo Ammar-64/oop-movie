@@ -58,7 +58,7 @@ class ListActorsPage {
 
         //gets popular actors from API and returns an array of actor objects
         const actorData = await APIService.fetchPopularActors()
-        listActorsPage.renderActors(actorData)
+        ListActorsPage.renderActors(actorData)
     }
     static renderActors(actors) {
         const div = document.createElement('div')
