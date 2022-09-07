@@ -30,18 +30,38 @@ class HomePage {
     static container = document.getElementById('container');
     static renderMovies(movies) {
         movies.forEach(movie => {
+            const row = document.createElement("div");
+            const col = document.createElement("div");
             const movieDiv = document.createElement("div");
             const movieImage = document.createElement("img");
             movieImage.src = `${movie.backdropUrl}`;
             const movieTitle = document.createElement("h3");
             movieTitle.textContent = `${movie.title}`;
-            movieImage.addEventListener("click", function() {
+            movieImage.addEventListener("click", function () {
                 Movies.run(movie);
             });
+            //style
+            col.className = "col-sm-4";
+            movieDiv.style.width = "360px";
+            movieImage.style.width = "100%";
+            movieImage.style.height = "300px";
+
+            movieDiv.style.background = "#D3D3D3";
+            movieTitle.style.background = "#D3D3D3";
+            movieDiv.style.color = "black";
+            //movieDiv.style.padding = "10px";
+            movieDiv.style.margin = "24px";
+            //movieDiv.style.display = "inline-box";
+            //movieDiv.style.justifyContent = "center";
+            //movieDiv.style.alignItems = "center";
+
+            row.appendChild(col);
+            col.appendChild(movieDiv);
 
             movieDiv.appendChild(movieTitle);
             movieDiv.appendChild(movieImage);
             this.container.appendChild(movieDiv);
+
         })
     }
 }

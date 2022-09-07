@@ -1,11 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 #movie-backdrop {
     width: 100%;
+
 }
+
+
 
 .container {
     padding-top: 32px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    background-image: linear-gradient(to right, black, #3997ff);
 }
 
 #actors {
     margin: 24px 16px 0 0;
+}
+
+* {
+    background-color: white;
+    padding: 0px;
+}
+
+.white {
+    background-color: white;
+}
+
+.navbar-brand {
+    font-family: 'Libre Baskerville', serif;
 }
