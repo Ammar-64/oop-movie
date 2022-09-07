@@ -49,7 +49,7 @@ class APIService {
     )}`
     }
 }
-class listActorsPage {
+class ListActorsPage {
     static async run() {
         //Empty the container div if it has something in it
         if (container.innerText !== '') {
