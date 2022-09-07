@@ -1,8 +1,8 @@
 //the API documentation site https://developers.themoviedb.org/3/
 const container = document.getElementById("container");
 const backgroundDiv = document.createElement("div");
-backgroundDiv.classList.add('backgroundDiv')
-container.appendChild(backgroundDiv)
+backgroundDiv.classList.add("backgroundDiv");
+container.appendChild(backgroundDiv);
 class App {
   static async run() {
     const movies = await APIService.fetchMovies();
@@ -25,8 +25,9 @@ class APIService {
     return new Movie(data);
   }
   static _constructUrl(path) {
-    return `${this.TMDB_BASE_URL
-      }/${path}?api_key=${"862271aa285e74d61113b31d525420b4"}`; //remember to encode and decode it using ../atob
+    return `${
+      this.TMDB_BASE_URL
+    }/${path}?api_key=${"862271aa285e74d61113b31d525420b4"}`; //remember to encode and decode it using ../atob
   }
 }
 
@@ -52,6 +53,8 @@ class HomePage {
       movieImage.addEventListener("click", function () {
         Movies.run(movie);
       });
+
+      movieDiv.appendChild(movieTitle);
       movieImage.addEventListener("mouseover", (e) => {
         e.preventDefault();
         this.renderBackgroundMovie(movie);
@@ -59,6 +62,7 @@ class HomePage {
       movieDiv.classList.add("movieDiv");
       this.moviesDiv.classList.add("moviesDiv");
       movieDiv.appendChild(movieImage);
+      this.container.appendChild(movieDiv);
       movieDiv.appendChild(movieTitle);
       this.moviesDiv.appendChild(movieDiv);
       this.container.appendChild(this.moviesDiv);
@@ -77,7 +81,18 @@ class Movies {
 class MoviePage {
   static container = document.getElementById("container");
   static renderMovieSection(movie) {
+    console.log(movie);
     MovieSection.renderMovie(movie);
+  }
+}
+
+class AboutSection {
+  static container = document.getElementById("container");
+
+  static renderAboutPage() {
+    container.innerHTML = `
+    <h3> HELLOOOOOO </h3>
+    `;
   }
 }
 
@@ -95,6 +110,8 @@ class MovieSection {
           <p id="movie-runtime">${movie.runtime}</p>
           <h3>Overview:</h3>
           <p id="movie-overview">${movie.overview}</p>
+          <h4>Language:</h4>
+          <p id="movie-overview">${movie.language}</p>
         </div>
       </div>
       <h3>Actors:</h3>
@@ -111,6 +128,7 @@ class Movie {
     this.runtime = json.runtime + " minutes";
     this.overview = json.overview;
     this.backdropPath = json.backdrop_path;
+    this.language = json.original_language;
   }
 
   get backdropUrl() {
