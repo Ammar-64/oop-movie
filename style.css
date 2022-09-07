@@ -2,10 +2,17 @@
 
 #movie-backdrop {
     width: 100%;
+
 }
+
+
 
 .container {
     padding-top: 32px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    background-image: linear-gradient(to right, black, #3997ff);
 }
 
 #actors {
