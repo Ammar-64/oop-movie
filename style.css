@@ -6,8 +6,13 @@ body{
 #movie-backdrop {
     width: 100%;
 }
+nav {
+    display: flex;
+    justify-content: space-between;
+}
 
 .container {
+    
     padding-top: 32px;
     max-width: 100%;
     margin: 0;
@@ -89,4 +94,13 @@ body{
     right: 20px;
     font-size: 20px;
     color: silver;
+}
+.test1 {
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+}
+.search-btn {
+    display: flex;
+    justify-content: space-between;
 }
