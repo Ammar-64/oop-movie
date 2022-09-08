@@ -1,6 +1,14 @@
 //the API documentation site https://developers.themoviedb.org/3/
 const container = document.getElementById("container");
 const backgroundDiv = document.createElement("div");
+backgroundDiv.innerHTML = `
+<div class='home-background'>
+<div class='home-background--text'>
+<h1>Welcome to your Movie Guide</h1>
+<p>Start hovering over the popular movies for more details!</p>
+</div>
+</div>
+`
 backgroundDiv.classList.add("backgroundDiv");
 container.appendChild(backgroundDiv);
 class App {
@@ -67,6 +75,10 @@ class HomePage {
       this.moviesDiv.appendChild(movieDiv);
       this.container.appendChild(this.moviesDiv);
     });
+    const scrollForMore = document.createElement('div')
+    scrollForMore.classList.add('scroll-for-more')
+    scrollForMore.innerHTML = `<p>Scroll to the right for more</p>`
+    this.container.appendChild(scrollForMore)
   }
 }
 

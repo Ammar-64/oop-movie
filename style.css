@@ -2,7 +2,6 @@ body{
     line-height: 1.2;
     margin: 0;
     padding: 0;
-    height: 100vh;
 }
 #movie-backdrop {
     width: 100%;
@@ -44,6 +43,7 @@ body{
 }
 .movieDiv p{
     margin-top: 10px;
+    color: silver;
 }
 .backgroundDiv{
     position: relative;
@@ -67,4 +67,26 @@ body{
 .backgroundDiv img{
     width: 100%;
     height: 100%;
+}
+.home-background{
+    background: #1D242D;
+    text-align: center;
+    height: 100%;
+    color: silver;
+}
+.home-background h1{
+    font-size: 50px;
+}
+.home-background p{
+    font-size: 25px;
+}
+.home-background--text{
+    padding-top: 100px;
+}
+.scroll-for-more{
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    font-size: 20px;
+    color: silver;
 }
