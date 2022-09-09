@@ -1,6 +1,8 @@
 //the API documentation site https://developers.themoviedb.org/3/
 const container = document.getElementById("container");
 const backgroundDiv = document.createElement("div");
+const form = document.getElementById('form')
+const search = document.getElementById('search')
 backgroundDiv.innerHTML = `
 <div class='home-background'>
 <div class='home-background--text'>
@@ -11,6 +13,19 @@ backgroundDiv.innerHTML = `
 `;
 backgroundDiv.classList.add("backgroundDiv");
 container.appendChild(backgroundDiv);
+this.form.addEventListener('submit', (e) => {
+  e.preventDefault()
+  console.log('hello from search')
+  const searchTerm = this.search.value
+  if (searchTerm) {
+    APIService.fetchMoviesWithSearch(APIService.searchURL + '&query=' + searchTerm)
+  }
+  else {
+    const movies = APIService.fetchMovies();
+    HomePage.renderMovies(movies)
+  }
+
+})
 class App {
   static async run() {
     const movies = await APIService.fetchMovies();
@@ -21,11 +36,19 @@ class App {
 
 class APIService {
   static TMDB_BASE_URL = "https://api.themoviedb.org/3";
+  static API_KEY = 'api_key=862271aa285e74d61113b31d525420b4'
+  static searchURL = this.TMDB_BASE_URL + '/search/movie?' + this.API_KEY
   static async fetchMovies() {
     const url = APIService._constructUrl(`movie/now_playing`);
     const response = await fetch(url);
     const data = await response.json();
     return data.results.map((movie) => new Movie(movie));
+  }
+  static fetchMoviesWithSearch(url) {
+    fetch(url).then(res => res.json()).then(data => {
+      console.log(data.results)
+      SearchPage.showSearchedMovies(data.results)
+    })
   }
   static async fetchMovie(movieId) {
     const url = APIService._constructUrl(`movie/${movieId}`);
@@ -55,15 +78,15 @@ class APIService {
   }
 
   static _constructUrl(path) {
-    return `${
-      this.TMDB_BASE_URL
-    }/${path}?api_key=${"862271aa285e74d61113b31d525420b4"}`; //remember to encode and decode it using ../atob
+    return `${this.TMDB_BASE_URL
+      }/${path}?${this.API_KEY}`; //remember to encode and decode it using ../atob
   }
 }
 
 class HomePage {
   static container = document.getElementById("container");
   static moviesDiv = document.createElement("div");
+
   static renderBackgroundMovie(movie) {
     backgroundDiv.innerHTML = `
     <div class='backgroundTextDiv'>
@@ -148,7 +171,48 @@ class ActorSection {
     `;
   }
 }
-class SearchPage {}
+class SearchPage {
+  static container = document.getElementById("container");
+  static IMG_URL = 'https://image.tmdb.org/t/p/w500';
+  static showSearchedMovies(data) {
+    this.container.innerHTML = ''
+    this.container.classList.add('searched-movies-container')
+    data.forEach((movie) => {
+      const { title, poster_path, vote_average, overview } = movie;
+      const movieEl = document.createElement('div');
+      movieEl.classList.add('movie');
+      movieEl.innerHTML = `
+             <img src="${this.IMG_URL + poster_path}" alt="${title}">
+            <div class="movie-info">
+                <h3>${title}</h3>
+                <span class="${this.getColor(vote_average)}">${vote_average}</span>
+            </div>
+            <div class="overview">
+                <h3>Overview</h3>
+                ${overview}
+            </div>
+        
+        `
+      movieEl.addEventListener("click", function () {
+        Movies.run(movie);
+      });
+      this.container.appendChild(movieEl);
+      console.log('we are in showSearchedMovies')
+
+    })
+  }
+  static getColor(vote) {
+    if (vote >= 8) {
+      return 'green'
+    } else if (vote >= 5) {
+      return "orange"
+    } else {
+      return 'red'
+    }
+  }
+
+
+}
 
 class AboutSection {
   static container = document.getElementById("container");
