@@ -31,7 +31,7 @@ nav {
     display: flex;
     overflow-x: scroll;
     scroll-behavior: smooth;
-    gap: 30px;
+    /* gap: 30px; */
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none; /* for Firefox */
     
@@ -41,14 +41,19 @@ nav {
 }
 
 .movieDiv img{
-    border-radius: 10px;
+    /* border-radius: 10px; */
     width:200px;
-    height: 250px;
+    height: 300px;
     cursor: pointer;
+    position: relative;
 }
 .movieDiv p{
-    margin-top: 10px;
-    color: silver;
+    font-size: small;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    z-index: 999;
+    top: 0;
 }
 .backgroundDiv{
     position: relative;
@@ -103,4 +108,7 @@ nav {
 .search-btn {
     display: flex;
     justify-content: space-between;
+}
+.footer{
+    color: white;
 }
