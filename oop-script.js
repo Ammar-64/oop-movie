@@ -14,6 +14,7 @@ container.appendChild(backgroundDiv);
 class App {
   static async run() {
     const movies = await APIService.fetchMovies();
+    console.log(movies)
     HomePage.renderMovies(movies);
   }
 }
