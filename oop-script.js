@@ -213,6 +213,12 @@ class Movie {
   get backdropUrl() {
     return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
   }
+  get genres() {
+    return this.genres.map(el => {
+        return `<span> ${el.name}</span>`
+    }).join("")
+}
+
 }
 
 document.addEventListener("DOMContentLoaded", App.run);
