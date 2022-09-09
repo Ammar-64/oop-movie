@@ -1,4 +1,5 @@
 body{
+    font-family: "Cairo", sans-serif;
     line-height: 1.2;
     margin: 0;
     padding: 0;
@@ -6,9 +7,11 @@ body{
 #movie-backdrop {
     width: 100%;
 }
-nav {
-    display: flex;
-    justify-content: space-between;
+.navbar-brand{
+    color: #13C6B2;
+}
+.nav-link{
+    color: #13C6B2;
 }
 
 .container {
@@ -39,21 +42,31 @@ nav {
 .moviesDiv::-webkit-scrollbar{
     display: none;
 }
-
+.movieDiv{
+    height: 300px;
+}
 .movieDiv img{
     /* border-radius: 10px; */
     width:200px;
-    height: 300px;
+    height: 100%;
     cursor: pointer;
     position: relative;
 }
 .movieDiv p{
     font-size: small;
-    color: white;
     font-weight: bold;
+    font-size: 13px;
+}
+.movie-text-div{
     position: absolute;
+    bottom: 0;
     z-index: 999;
-    top: 0;
+    padding-left: 7px;
+    color: white;
+}
+.movie-text-div i{
+    color: black;
+    padding-right: 2px;
 }
 .backgroundDiv{
     position: relative;
@@ -95,7 +108,7 @@ nav {
 }
 .scroll-for-more{
     position: absolute;
-    bottom: -10px;
+    bottom: -50px;
     right: 20px;
     font-size: 20px;
     color: silver;

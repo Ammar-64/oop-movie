@@ -76,15 +76,21 @@ class HomePage {
   static renderMovies(movies) {
     movies.forEach((movie) => {
       const movieDiv = document.createElement("div");
+      const movieTextDiv = document.createElement('div')
+      movieTextDiv.classList.add('movie-text-div')
       const movieImage = document.createElement("img");
+      const movieRating = document.createElement('span')
+      movieRating.innerHTML = `<i class="bx bxs-star"></i>${movie.rating}`
       movieImage.src = `${movie.backdropUrl}`;
       const movieTitle = document.createElement("p");
       movieTitle.textContent = `${movie.title}`;
+      movieTextDiv.appendChild(movieTitle)
+      movieTextDiv.appendChild(movieRating)
       movieImage.addEventListener("click", function () {
         Movies.run(movie);
       });
 
-      movieDiv.appendChild(movieTitle);
+      movieDiv.appendChild(movieTextDiv);
       movieImage.addEventListener("mouseover", (e) => {
         e.preventDefault();
         this.renderBackgroundMovie(movie);
@@ -93,7 +99,6 @@ class HomePage {
       this.moviesDiv.classList.add("moviesDiv");
       movieDiv.appendChild(movieImage);
       this.container.appendChild(movieDiv);
-      movieDiv.appendChild(movieTitle);
       this.moviesDiv.appendChild(movieDiv);
       this.container.appendChild(this.moviesDiv);
     });
@@ -176,7 +181,7 @@ class MovieSection {
             <ul style="list-style: none; padding: 0px;">
                 <li style="display: flex; justify-items: flex-start; align-items: flex-start;">
                     <aside id="runtime" style="margin-right: 10px;">
-                        DURATION
+                        DURATION:
                     </aside>
         
                   <div style="display: flex; " >
@@ -233,7 +238,7 @@ class Movie {
     this.id = json.id;
     this.title = json.title;
     this.releaseDate = json.release_date;
-    this.runtime = json.runtime + " minutes";
+    this.runtime = json.runtime + " mins";
     this.rating = json.vote_average;
     this.overview = json.overview;
     this.backdropPath = json.backdrop_path;
