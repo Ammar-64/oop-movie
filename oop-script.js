@@ -14,7 +14,9 @@ container.appendChild(backgroundDiv);
 class App {
   static async run() {
     const movies = await APIService.fetchMovies();
+    const genres = await APIService.fetchGenres();
     HomePage.renderMovies(movies);
+    MoviesByGenre.renderGenres(genres);
   }
 }
 
@@ -30,8 +32,23 @@ class APIService {
     const url = APIService._constructUrl(`movie/${movieId}`);
     const response = await fetch(url);
     const data = await response.json();
+    console.log(data)
     return new Movie(data);
   }
+  //genre
+  static async fetchGenres() {
+    const url = APIService._constructUrl(`genre/movie/list`)
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.genres;
+}
+//search button
+static async fetchSearch(queryString) {
+  const url = APIService._constructUrl(`search/movie`) + `&query=${queryString}`
+  const response = await fetch(url)
+  const data = await response.json()
+  return data.results.map(movie => new Movie(movie));
+}
   static _constructUrl(path) {
     return `${
       this.TMDB_BASE_URL
