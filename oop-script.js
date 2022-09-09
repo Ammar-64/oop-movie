@@ -99,6 +99,56 @@ class HomePage {
   }
 }
 
+//class of movies by genre
+class Genres {
+  static async run(genre) {
+      MoviesByGenrePage.renderDiscoveredByGenre(genre);
+  }
+}
+
+class MoviesByGenrePage {
+  static container = document.getElementById('container');
+  static renderDiscoveredByGenre(genres) {
+      genres.forEach(genre => {
+          const genreDiv = document.createElement("div");
+          genreDiv.classList.add("genre-div", "album", "py-5", "bg-light")
+          const genreImage = document.createElement("img");
+          genreImage.setAttribute('id', 'main-div-img');
+          genreImage.classList.add("genre-image-div")
+          genreImage.src = `${genre.backdropUrl}`;
+          const genreName = document.createElement("h3");
+          genreName.classList.add("text-dark")
+          genreName.textContent = `${genre.title}`;
+          genreImage.addEventListener("click", function () {
+              Movies.run(genre.id);
+          })
+          genreDiv.appendChild(genreName);
+          genreDiv.appendChild(genreImage);
+          this.container.appendChild(genreDiv);
+      })
+  }
+}
+
+
+class MoviesByGenre {
+  static renderGenres(genres) {
+      const dropdown = document.getElementById("dropdown-genre-list");
+      dropdown.innerHTML = genres.map(genre => {
+          return `<a class="dropdown-item" id=${genre.id} href="#">${genre.name}</a>`
+      }).join("")
+      const dropdownItems = document.querySelectorAll(".dropdown-item");
+      const dropdownItemsArr = [...dropdownItems];
+      dropdownItemsArr.map(item => {
+          item.addEventListener("click", async function () {
+              const data = await APIService.fetchDiscover(item.id)
+              HomePage.container.innerHTML = ""
+              Genres.run(data);
+          })
+      })
+  }
+}
+
+
 class Movies {
   static async run(movie) {
     const movieData = await APIService.fetchMovie(movie.id);
