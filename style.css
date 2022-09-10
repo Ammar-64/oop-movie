@@ -34,7 +34,6 @@ body{
     display: flex;
     overflow-x: scroll;
     scroll-behavior: smooth;
-    /* gap: 30px; */
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none; /* for Firefox */
     
@@ -46,7 +45,6 @@ body{
     height: 300px;
 }
 .movieDiv img{
-    /* border-radius: 10px; */
     width:200px;
     height: 100%;
     cursor: pointer;

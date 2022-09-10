@@ -248,16 +248,6 @@ class AboutPage {
   }
 }
 
-class AboutSection {
-  static container = document.getElementById("container");
-
-  static renderAboutPage() {
-    container.innerHTML = `
-    <h3> HELLOOOOOO </h3>
-    `;
-  }
-}
-
 class MovieSection {
   static renderMovie(movie) {
     MoviePage.container.innerHTML = `
