@@ -47,6 +47,7 @@ static async fetchDiscover(genreId) {
   const url = APIService._constructUrl(`discover/movie`) + `&with_genres=${genreId}`;
   const response = await fetch(url)
   const data = await response.json()
+  console.log(data)
   return data.results.map(movie => new Movie(movie));
 }
 //search button
