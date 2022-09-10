@@ -1,11 +1,106 @@
+body{
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+}
 #movie-backdrop {
     width: 100%;
 }
+nav {
+    display: flex;
+    justify-content: space-between;
+}
 
 .container {
+    
     padding-top: 32px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #actors {
     margin: 24px 16px 0 0;
+}
+.moviesDiv{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 20px;
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    gap: 30px;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    
+}
+.moviesDiv::-webkit-scrollbar{
+    display: none;
+}
+
+.movieDiv img{
+    border-radius: 10px;
+    width:200px;
+    height: 250px;
+    cursor: pointer;
+}
+.movieDiv p{
+    margin-top: 10px;
+    color: silver;
+}
+.backgroundDiv{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+}
+.backgroundTextDiv{
+    position: absolute;
+    bottom: 75%;
+    left: 10%;
+}
+.backgroundTextDiv h1 {
+    font-size: 40px;
+    color: silver;
+}
+.backgroundTextDiv p{
+    font-size: 25px;
+    color: #13C6B2
+}
+.backgroundDiv img{
+    width: 100%;
+    height: 100%;
+}
+.home-background{
+    background: #1D242D;
+    text-align: center;
+    height: 100%;
+    color: silver;
+}
+.home-background h1{
+    font-size: 50px;
+}
+.home-background p{
+    font-size: 25px;
+}
+.home-background--text{
+    padding-top: 100px;
+}
+.scroll-for-more{
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    font-size: 20px;
+    color: silver;
+}
+.test1 {
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+}
+.search-btn {
+    display: flex;
+    justify-content: space-between;
 }

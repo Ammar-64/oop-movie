@@ -4,16 +4,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
     <link rel="stylesheet" href="style.css">
     <title>Movie</title>
-</head>
+</head> 
 
-<body>
+    <body>
+         <!--navbar-->
+    <main class="flex-grow-1">
+     <nav  id="nav-container" class="navbar navbar-expand-lg bg-dark d-flex justify-content-center" >
+      <div class="container-fluid" >
+        <a class="navbar-brand" href="#" >Movie Project</a>
+        <button class="navbar-toggler" type="button" 
+        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#" id="home-page">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="actors-page">Actors</a>
+            </li>
+            <li class=" nav-item dropdown">
+              <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Movies
+              </a>
+              <div class="dropdown-menu" id="dropdown-genre-list" aria-labelledby="navbarDropdown">
+              
+             
+              <ul class=" dropdown-menu" >
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Sci-Fi</a></li>
+                <li><a class="dropdown-item" href="#">Comedy</a></li>
+                <li><a class="dropdown-item" href="#">Adventure</a></li>
+                <li><a class="dropdown-item" href="#">Familly</a></li>
+                <li><a class="dropdown-item" href="#">Drama</a></li>
+                <li><a class="dropdown-item" href="#">Romance</a></li>
+                <li><a class="dropdown-item" href="#">Crime</a></li>
+                <li><a class="dropdown-item" href="#">Fantasy</a></li>
+                <li><a class="dropdown-item" href="#">History</a></li>
+                <li><a class="dropdown-item" href="#">mystery</a></li>
+                <li><a class="dropdown-item" href="#">Thriler</a></li>
+              </ul>
+            </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About Us</a>
+            </li>
+          </ul>
+          <form class="d-flex " role="search">
+            
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" id="search-button-movies" type="submit" onclick="">Search</button>
+          
+          </form>
+        </div>
+      </div>
+    </nav>
+  </main>
+  
+
+
+
     <div id="container" class="container">
     </div>
+    <!--footer-->
+  <footer >
+    <div class="mt-5 pt-5 pb-5 footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 col-xs-12 about-company">
+            <h2>Follow our pages on social media</h2>
+            <p><a href="#"><i class="fa fa-facebook-square ml-5 fa-3x"></i></a><a href="#"><i class="fa fa-linkedin-square ml-2 fa-3x"></i></a></p>
+          </div>
+          <div class="col-lg-3 col-xs-12 links">
+            <h4 class="mt-lg-0 mt-sm-3 text-center pb-5 ">Contact Us</h4>
+            <div class="test1">
+              <h5 class="list-unstyled">Omar basatni</h5>
+              <ul class="list-unstyled">
+                <li class="row d-flex justify-content-center">
+                  <a href="https://github.com/omar bassatni" target="_blank"><i class="fa fa-github" style="font-size:24px"></i></a>
+                  <a href="#!" target="_blank"><i class="fa fa-linkedin-square ml-2 fa-3x" style="font-size:24px"></i></a>
+                </li>
+
+             </ul>
+          </div>
+          <div class="test1">
+            <h5 class="list-unstyled">Reem Chalak</h5>
+           <ul class="list-unstyled">
+            <li class="row d-flex justify-content-center">
+                <a href="https://github.com/reem chalak" target="_blank"><i class="fa fa-github" style="font-size:24px"></i></a>
+                <a href="#!" target="_blank"><i class="fa fa-linkedin-square ml-2 fa-3x" style="font-size:24px"></i></a>
+            </li>
+
+        </ul>
+      </div>
+         <div class="test1">
+          <h5 class="list-unstyled">Noora Hakim</h5>
+          <ul class="list-unstyled">
+          <li class="row d-flex justify-content-center">
+            <a href="https://github.com/noora hakim" target="_blank"><i class="fa fa-github" style="font-size:24px"></i></a>
+            <a href="#!" target="_blank"><i class="fa fa-linkedin-square ml-2 fa-3x" style="font-size:24px"></i></a>
+          </li>
+
+         </ul>
+       </div>
+       <div class="test1">
+        <h5 class="list-unstyled">Parykhan jameel</h5>
+        <ul class="list-unstyled">
+         <li class="row d-flex justify-content-center">
+            <a href="https://github.com/parykhan jameel" target="_blank"><i class="fa fa-github" style="font-size:24px"></i></a>
+            <a href="#!" target="_blank"><i class="fa fa-linkedin-square ml-2 fa-3x" style="font-size:24px"></i></a>
+         </li>
+
+        </ul>
+        </div>
+      </div>
+          
+    </div>
+        <div class="row mt-5 ">
+          <div class="col copyright">
+            <p class="text-center"><small class="text-white-50  ">© 2022. All Rights Reserved.</small></p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </footer>
+
+    
+
     <script src="./oop-script.js"></script>
-    <!-- <script type="text/javascript" src="script.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
+
 </body>
 
 </html>
