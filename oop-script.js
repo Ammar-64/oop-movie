@@ -40,6 +40,7 @@ class APIService {
     const url = APIService._constructUrl(`genre/movie/list`)
     const response = await fetch(url)
     const data = await response.json()
+    console.log(data);;
     return data.genres;
 }
 static async fetchDiscover(genreId) {
