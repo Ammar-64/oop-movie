@@ -279,7 +279,7 @@ class MovieSection {
             <ul style="list-style: none; padding: 0px;">
                 <li style="display: flex; justify-items: flex-start; align-items: flex-start;">
                     <aside id="runtime" style="margin-right: 10px;">
-                        DURATION:
+                        Durtion: ${movie.runtime}
                     </aside>
         
                   <div style="display: flex; " >
@@ -288,7 +288,7 @@ class MovieSection {
                     </p>
 
                     <p id="rating" style="background-color: indigo; padding: 5px; margin-left: 5px ; border-radius: 1000px;">
-                        DIRECTOR   ${movie.director}
+                        DIRECTOR:   ${movie.director}
                     </p>
                   </div>
                 </li>
