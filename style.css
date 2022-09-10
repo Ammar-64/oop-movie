@@ -62,6 +62,7 @@
 
 
 body{
+    font-family: "Cairo", sans-serif;
     line-height: 1.2;
     margin: 0;
     padding: 0;
@@ -96,9 +97,11 @@ html {
 #movie-backdrop {
     width: 100%;
 }
-nav {
-    display: flex;
-    justify-content: space-between;
+.navbar-brand{
+    color: #13C6B2;
+}
+.nav-link{
+    color: #13C6B2;
 }
 
 .container {
@@ -121,7 +124,6 @@ nav {
     display: flex;
     overflow-x: scroll;
     scroll-behavior: smooth;
-    gap: 30px;
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none; /* for Firefox */
     
@@ -129,16 +131,30 @@ nav {
 .moviesDiv::-webkit-scrollbar{
     display: none;
 }
-
+.movieDiv{
+    height: 300px;
+}
 .movieDiv img{
-    border-radius: 10px;
     width:200px;
-    height: 250px;
+    height: 100%;
     cursor: pointer;
+    position: relative;
 }
 .movieDiv p{
-    margin-top: 10px;
-    color: silver;
+    font-size: small;
+    font-weight: bold;
+    font-size: 13px;
+}
+.movie-text-div{
+    position: absolute;
+    bottom: 0;
+    z-index: 999;
+    padding-left: 7px;
+    color: white;
+}
+.movie-text-div i{
+    color: black;
+    padding-right: 2px;
 }
 .backgroundDiv{
     position: relative;
@@ -180,7 +196,7 @@ nav {
 }
 .scroll-for-more{
     position: absolute;
-    bottom: -10px;
+    bottom: -50px;
     right: 20px;
     font-size: 20px;
     color: silver;
@@ -580,3 +596,79 @@ nav {
 
 
 
+
+.footer{
+    color: white;
+}
+.fa{
+    color: white;
+}
+.movie {
+    width: 300px;
+    margin: 1rem;
+    border-radius: 3px;
+    box-shadow: 0.2px 4px 5px rgba(0,0,0,0.1);
+    background-color: var(--secondary-color);
+    position:relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+.movie img{
+    width:100%;
+}
+
+.movie-info{
+    color:#eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem 1rem;
+    letter-spacing: 0.5px;
+}
+
+.movie-info h3{
+    margin-top: 0;
+}
+
+.movie-info span{
+    background-color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.movie-info span.green{
+    color:lightgreen;
+}
+
+.movie-info span.orange{
+    color:orange;
+}
+
+.movie-info span.red{
+    color:red;
+}
+
+.overview{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: #fff;
+    padding: 1rem;
+    max-height: 100%;
+    transform:translateY(101%);
+    transition:transform 0.3s ease-in;
+}
+
+.movie:hover .overview{
+    transform:translateY(0)
+}
+.searched-movies-container{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #1D242D;
+}

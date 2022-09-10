@@ -1,6 +1,8 @@
 //the API documentation site https://developers.themoviedb.org/3/
 const container = document.getElementById("container");
 const backgroundDiv = document.createElement("div");
+const form = document.getElementById('form')
+const search = document.getElementById('search')
 backgroundDiv.innerHTML = `
 <div class='home-background'>
 <div class='home-background--text'>
@@ -11,20 +13,45 @@ backgroundDiv.innerHTML = `
 `;
 backgroundDiv.classList.add("backgroundDiv");
 container.appendChild(backgroundDiv);
+this.form.addEventListener('submit', (e) => {
+  e.preventDefault()
+  console.log('hello from search')
+  const searchTerm = this.search.value
+  if (searchTerm) {
+    APIService.fetchMoviesWithSearch(APIService.searchURL + '&query=' + searchTerm)
+  }
+  else {
+    const movies = APIService.fetchMovies();
+    HomePage.renderMovies(movies)
+  }
+
+})
 class App {
   static async run() {
     const movies = await APIService.fetchMovies();
+    console.log(movies)
     HomePage.renderMovies(movies);
   }
+  static async runAboutPage() {
+    AboutPage.renderAbout();
+}
 }
 
 class APIService {
   static TMDB_BASE_URL = "https://api.themoviedb.org/3";
+  static API_KEY = 'api_key=862271aa285e74d61113b31d525420b4'
+  static searchURL = this.TMDB_BASE_URL + '/search/movie?' + this.API_KEY
   static async fetchMovies() {
     const url = APIService._constructUrl(`movie/now_playing`);
     const response = await fetch(url);
     const data = await response.json();
     return data.results.map((movie) => new Movie(movie));
+  }
+  static fetchMoviesWithSearch(url) {
+    fetch(url).then(res => res.json()).then(data => {
+      console.log(data.results)
+      SearchPage.showSearchedMovies(data.results)
+    })
   }
   static async fetchMovie(movieId) {
     const url = APIService._constructUrl(`movie/${movieId}`);
@@ -54,15 +81,15 @@ class APIService {
   }
 
   static _constructUrl(path) {
-    return `${
-      this.TMDB_BASE_URL
-    }/${path}?api_key=${"862271aa285e74d61113b31d525420b4"}`; //remember to encode and decode it using ../atob
+    return `${this.TMDB_BASE_URL
+      }/${path}?${this.API_KEY}`; //remember to encode and decode it using ../atob
   }
 }
 
 class HomePage {
   static container = document.getElementById("container");
   static moviesDiv = document.createElement("div");
+
   static renderBackgroundMovie(movie) {
     backgroundDiv.innerHTML = `
     <div class='backgroundTextDiv'>
@@ -79,15 +106,21 @@ class HomePage {
   static renderMovies(movies) {
     movies.forEach((movie) => {
       const movieDiv = document.createElement("div");
+      const movieTextDiv = document.createElement('div')
+      movieTextDiv.classList.add('movie-text-div')
       const movieImage = document.createElement("img");
+      const movieRating = document.createElement('span')
+      movieRating.innerHTML = `<i class="bx bxs-star"></i>${movie.rating}`
       movieImage.src = `${movie.backdropUrl}`;
       const movieTitle = document.createElement("p");
       movieTitle.textContent = `${movie.title}`;
+      movieTextDiv.appendChild(movieTitle)
+      movieTextDiv.appendChild(movieRating)
       movieImage.addEventListener("click", function () {
         Movies.run(movie);
       });
 
-      movieDiv.appendChild(movieTitle);
+      movieDiv.appendChild(movieTextDiv);
       movieImage.addEventListener("mouseover", (e) => {
         e.preventDefault();
         this.renderBackgroundMovie(movie);
@@ -96,7 +129,6 @@ class HomePage {
       this.moviesDiv.classList.add("moviesDiv");
       movieDiv.appendChild(movieImage);
       this.container.appendChild(movieDiv);
-      movieDiv.appendChild(movieTitle);
       this.moviesDiv.appendChild(movieDiv);
       this.container.appendChild(this.moviesDiv);
     });
@@ -279,15 +311,77 @@ class ActorSection {
     `;
   }
 }
-class SearchPage {}
-
-class AboutSection {
+class SearchPage {
   static container = document.getElementById("container");
+  static IMG_URL = 'https://image.tmdb.org/t/p/w500';
+  static showSearchedMovies(data) {
+    this.container.innerHTML = ''
+    this.container.classList.add('searched-movies-container')
+    data.forEach((movie) => {
+      const { title, poster_path, vote_average, overview } = movie;
+      const movieEl = document.createElement('div');
+      movieEl.classList.add('movie');
+      movieEl.innerHTML = `
+             <img src="${this.IMG_URL + poster_path}" alt="${title}">
+            <div class="movie-info">
+                <h3>${title}</h3>
+                <span class="${this.getColor(vote_average)}">${vote_average}</span>
+            </div>
+            <div class="overview">
+                <h3>Overview</h3>
+                ${overview}
+            </div>
+        
+        `
+      movieEl.addEventListener("click", function () {
+        Movies.run(movie);
+      });
+      this.container.appendChild(movieEl);
+      console.log('we are in showSearchedMovies')
 
-  static renderAboutPage() {
-    container.innerHTML = `
-    <h3> HELLOOOOOO </h3>
-    `;
+    })
+  }
+  static getColor(vote) {
+    if (vote >= 8) {
+      return 'green'
+    } else if (vote >= 5) {
+      return "orange"
+    } else {
+      return 'red'
+    }
+  }
+
+
+}
+
+
+class AboutPage {
+  static container = document.getElementById("container");
+  static renderAbout() {
+      ActorPage.container.innerHTML = `
+  
+    <div class="row d-flex justify-content-center p-5">
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h2 style="font-weight: bold;"> About Us</h2>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h3>The Easiest Part Of the Project</h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h3>After all the<b class="font-weight-bold text-danger"> struggle! </b> </h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2 font-italic ">
+    <h3>Perry couldn't push nor pull, Reem couldn't share screen on discord!</h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h3>And yet we came up with this <b class="font-weight-bold" style="color:green;"> Result! </b></h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <p>Coded and Designed for Re:Coded Front End 2022 Bootcamp</p>
+    </div>
+  </div>
+  
+  `
   }
 }
 
@@ -313,6 +407,7 @@ class MovieSection {
                 <li style="display: flex; justify-items: flex-start; align-items: flex-start;">
                     <aside id="runtime" style="margin-right: 10px;">
                         DURATION  ${movie.runtime}
+
                     </aside>
         
                   <div style="display: flex; " >
@@ -321,7 +416,7 @@ class MovieSection {
                     </p>
 
                     <p id="rating" style="background-color: indigo; padding: 5px; margin-left: 5px ; border-radius: 1000px;">
-                        DIRECTOR   ${movie.director}
+                        DIRECTOR:   ${movie.director}
                     </p>
                   </div>
                 </li>
@@ -369,7 +464,7 @@ class Movie {
     this.id = json.id;
     this.title = json.title;
     this.releaseDate = json.release_date;
-    this.runtime = json.runtime + " minutes";
+    this.runtime = json.runtime + " mins";
     this.rating = json.vote_average;
     this.overview = json.overview;
     this.backdropPath = json.backdrop_path;
@@ -378,6 +473,7 @@ class Movie {
     this.getCast();
     this.getTrailer();
   }
+  
 
   async getCast() {
     const url = APIService._constructUrl(`/movie/${this.id}/credits`);
@@ -433,6 +529,7 @@ class Movie {
     trailerDiv.appendChild(iframe);
     trailerSection.appendChild(trailerDiv);
   }
+  
 
   async getReleaseDate() {
     const url = APIService._constructUrl(`/movie/${this.id}/release_dates`);
@@ -467,6 +564,7 @@ class Movie {
   }
 }
 
+
 class Actor {
   constructor(json) {
     this.id = json.id;
@@ -486,6 +584,7 @@ class Actor {
     // A list of movies the actor participated in
     this.getMovies();
   }
+  
 
   async getMovies() {
     const url = APIService._constructUrl(`/person/${this.id}/movie_credits`);
@@ -500,4 +599,9 @@ class Actor {
     // MoviePage.renderMovieSection(movieData);
   }
 }
+const aboutButton = document.getElementById("about-page");
+aboutButton.addEventListener("click", function () {
+    MoviePage.container.innerHTML = ""
+    App.runAboutPage();
+})
 document.addEventListener("DOMContentLoaded", App.run);
