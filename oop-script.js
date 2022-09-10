@@ -32,6 +32,9 @@ class App {
     console.log(movies)
     HomePage.renderMovies(movies);
   }
+  static async runAboutPage() {
+    AboutPage.renderAbout();
+}
 }
 
 class APIService {
@@ -214,6 +217,37 @@ class SearchPage {
 
 }
 
+
+class AboutPage {
+  static container = document.getElementById("container");
+  static renderAbout() {
+      ActorPage.container.innerHTML = `
+  
+    <div class="row d-flex justify-content-center p-5">
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h2 style="font-weight: bold;"> About Us</h2>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h3>The Easiest Part Of the Project</h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h3>After all the<b class="font-weight-bold text-danger"> struggle! </b> </h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2 font-italic ">
+    <h3>Perry couldn't push nor pull, Reem couldn't share screen on discord!</h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <h3>And yet we came up with this <b class="font-weight-bold" style="color:green;"> Result! </b></h3>
+    </div>
+    <div class="container-fluid d-flex justify-content-center p-2">
+    <p>Coded and Designed for Re:Coded Front End 2022 Bootcamp</p>
+    </div>
+  </div>
+  
+  `
+  }
+}
+
 class AboutSection {
   static container = document.getElementById("container");
 
@@ -311,6 +345,7 @@ class Movie {
     this.getCast();
     this.getTrailer();
   }
+  
 
   async getCast() {
     const url = APIService._constructUrl(`/movie/${this.id}/credits`);
@@ -366,11 +401,13 @@ class Movie {
     trailerDiv.appendChild(iframe);
     trailerSection.appendChild(trailerDiv);
   }
+  
 
   get backdropUrl() {
     return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
   }
 }
+
 
 class Actor {
   constructor(json) {
@@ -391,6 +428,7 @@ class Actor {
     // A list of movies the actor participated in
     this.getMovies();
   }
+  
 
   async getMovies() {
     const url = APIService._constructUrl(`/person/${this.id}/movie_credits`);
@@ -404,4 +442,9 @@ class Actor {
     // MoviePage.renderMovieSection(movieData);
   }
 }
+const aboutButton = document.getElementById("about-page");
+aboutButton.addEventListener("click", function () {
+    MoviePage.container.innerHTML = ""
+    App.runAboutPage();
+})
 document.addEventListener("DOMContentLoaded", App.run);
