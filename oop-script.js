@@ -70,6 +70,10 @@ class HomePage {
     <p>${movie.overview}</p>
     </div>
     <img src=${movie.backdropUrl} alt='movie-image'>
+
+
+
+    
     `;
   }
   static renderMovies(movies) {
@@ -135,9 +139,142 @@ class ActorPage {
 class ActorSection {
   static renderActor(actor) {
     ActorPage.container.innerHTML = `
-    
-  <h3>  ${actor.name} </h3>
-    
+    <main>
+    <article>
+
+      <!-- 
+        - #MOVIE DETAIL
+      -->
+
+      <section class="movie-detail">
+        <div class="container">
+
+          <figure class="movie-detail-banner">
+
+            <img src="https://www.themoviedb.org/t/p/original/${
+              actor.profilePicture
+            }" alt="profile picture">
+
+          
+
+          </figure>
+
+          <div class="movie-detail-content">
+
+
+            <h1 class="h1 detail-title">
+              ${actor.name
+                .split(" ")
+                .slice(0, -1)
+                .join(" ")} <strong> ${actor.name
+      .split(" ")
+      .slice(-1)
+      .join(" ")}</strong>
+            </h1>
+
+            <div class="meta-wrapper">
+
+              <div class="badge-wrapper">
+                <div class="badge badge-fill"> ${actor.gender}</div>
+
+                <div class="badge badge-outline"><i class="fa-regular fa-star"></i> ${
+                  actor.popularity
+                }</div>
+              </div>
+
+              <div class="ganre-wrapper">
+                <a href="#">Comedy,</a>
+
+                <a href="#">Action,</a>
+
+                <a href="#">Adventure,</a>
+
+                <a href="#">Science Fiction</a>
+              </div>
+
+              <div class="date-time">
+
+                <div>
+                  <ion-icon name="calendar-outline"></ion-icon>
+
+                  <time datetime="2021">Birthdate</time>
+                </div>
+
+                <div>
+                  <ion-icon name="time-outline"></ion-icon>
+
+                  <time datetime="PT115M"> ${actor.birthday}</time>
+                </div>
+
+              </div>
+
+            </div>
+
+            <p class="storyline">
+             ${actor.biography}
+            </p>
+
+           
+
+        </div>
+      </section>
+   
+      <!-- 
+      - #TV SERIES
+    -->
+
+    <section class="tv-series">
+      <div class="container">
+
+
+        <h2 class="h2 section-title">Movies Acted In</h2>
+
+        <ul class="movies-list">
+
+          <li>
+            <div class="movie-card">
+
+              <a href="./movie-details.html">
+                <figure class="card-banner">
+                  <img src="https://www.themoviedb.org/t/p/original/${
+                    actor.profilePicture
+                  }" alt="Moon Knight movie poster">
+                </figure>
+              </a>
+
+              <div class="title-wrapper">
+                <a href="./movie-details.html">
+                  <h3 class="card-title">Moon Knight</h3>
+                </a>
+
+                <time datetime="2022">2022</time>
+              </div>
+
+              <div class="card-meta">
+                <div class="badge badge-outline">2K</div>
+
+                <div class="duration">
+                  <ion-icon name="time-outline"></ion-icon>
+
+                  <time datetime="PT47M">47 min</time>
+                </div>
+
+                <div class="rating">
+                  <ion-icon name="star"></ion-icon>
+
+                  <data>8.6</data>
+                </div>
+              </div>
+
+            </div>
+          </li>
+
+          
+
+        </ul>
+
+      </div>
+    </section>
     
     `;
   }
@@ -175,7 +312,7 @@ class MovieSection {
             <ul style="list-style: none; padding: 0px;">
                 <li style="display: flex; justify-items: flex-start; align-items: flex-start;">
                     <aside id="runtime" style="margin-right: 10px;">
-                        DURATION
+                        DURATION  ${movie.runtime}
                     </aside>
         
                   <div style="display: flex; " >
@@ -297,6 +434,34 @@ class Movie {
     trailerSection.appendChild(trailerDiv);
   }
 
+  async getReleaseDate() {
+    const url = APIService._constructUrl(`/movie/${this.id}/release_dates`);
+    const response = await fetch(url);
+    const data = await response.json();
+  }
+  async getNowPlaying() {
+    const url = APIService._constructUrl(`/movie/now_playing`);
+    const response = await fetch(url);
+    const data = await response.json();
+  }
+  async getPopular() {
+    const url = APIService._constructUrl(`/movie/popular`);
+    const response = await fetch(url);
+    const data = await response.json();
+  }
+
+  async getUpcoming() {
+    const url = APIService._constructUrl(`/movie/top_rated`);
+    const response = await fetch(url);
+    const data = await response.json();
+  }
+
+  async getTopRated() {
+    const url = APIService._constructUrl(`/movie/upcoming`);
+    const response = await fetch(url);
+    const data = await response.json();
+  }
+
   get backdropUrl() {
     return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
   }
@@ -304,7 +469,7 @@ class Movie {
 
 class Actor {
   constructor(json) {
-    this.id = json.credit_id;
+    this.id = json.id;
     this.name = json.name;
 
     if (json.gender == 1) {
@@ -314,9 +479,9 @@ class Actor {
     }
     this.profilePicture = json.profile_path;
     this.popularity = json.popularity;
-    this.birthday = data.birthday;
-    this.deathday = data.deathday;
-    this.biography = data.biography;
+    this.birthday = json.birthday;
+    this.deathday = json.deathday;
+    this.biography = json.biography;
 
     // A list of movies the actor participated in
     this.getMovies();
@@ -326,10 +491,11 @@ class Actor {
     const url = APIService._constructUrl(`/person/${this.id}/movie_credits`);
     const response = await fetch(url);
 
-    const data = response.json();
+    const data = await response.json();
 
-    this.movies = data.id;
+    this.movies = data;
 
+    this.movies.forEach((movie) => {});
     // const movieData = await APIService.fetchMovie(movie.id);
     // MoviePage.renderMovieSection(movieData);
   }
